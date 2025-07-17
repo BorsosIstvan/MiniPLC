@@ -86,13 +86,13 @@ class PLC {
         this.QX = [false, false, false]; // digitale uitgangen
         this.IW = [0];
         this.QW = [0];
-        timer0 = new TON;
     }
+    timer0 = new TON;
 
 
     update() {
         // Start Stop knop
-        hmi.QX[0] = hmi.IX[0];
+        hmi.QX[0] = (hmi.IX[0] || hmi.QX[0]) && !hmi.IX[1];
         hmi.QW[0] = hmi.IW[0];
         if (hmi.IW[0] > 30){
             hmi.QX[1] = true;
