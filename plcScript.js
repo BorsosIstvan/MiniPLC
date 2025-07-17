@@ -47,16 +47,21 @@ class HMI {
 }
 
 class TON {
-    constructor(PT) {
+    constructor() {
         this.IN = false;   // Ingang
         this.Q = false;    // Uitgang
-        this.PT = PT;      // Preset Time in ms
+        this.PT = 1000;      // Preset Time in ms
         this.ET = 0;       // Elapsed Time
         this._startTime = null;
     }
 
-    update(IN) {
-        this.IN = IN;
+    setIN(IN) {this.IN = IN;}
+    setPT(PT) {this.PT = PT;}
+    getQ() {return this.Q;}
+    getET() {return this.ET;}
+
+    update() {
+        //this.IN = IN;
         
         if (this.IN) {
         if (this._startTime === null) {
@@ -81,22 +86,23 @@ class PLC {
         this.QX = [false, false, false]; // digitale uitgangen
         this.IW = [0];
         this.QW = [0];
+        timer0 = new TON;
     }
 
 
     update() {
         // Start Stop knop
-        plc.QX[0] = plc.IX[0];
+        hmi.QX[0] = hmi.IX[0];
         hmi.QW[0] = hmi.IW[0];
         if (hmi.IW[0] > 30){
-            this.QX[1] = true;
+            hmi.QX[1] = true;
         }else{
-            this.QX[1] = false;
+            hmi.QX[1] = false;
         }
         if (hmi.IW[0] > 60){
-            this.QX[2] = true;
+            hmi.QX[2] = true;
         }else{
-            this.QX[2] = false;
+            hmi.QX[2] = false;
         }
         
     }
