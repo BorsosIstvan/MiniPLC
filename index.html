@@ -42,19 +42,20 @@
     <div>
         <h3>PLC update functie</h3>
         <textarea class="textarea" id="codeEditor" rows="12" cols="60" spellcheck="false">
-        // Begin hier met je update functie
-        hmi.QX[0] = hmi.IX[0];
-        hmi.QW[0] = hmi.IW[0];
-        if (hmi.IW[0] > 30){
-            hmi.QX[1] = true;
-        }else{
-            hmi.QX[1] = false;
-        }
-        if (hmi.IW[0] > 60){
-            hmi.QX[2] = true;
-        }else{
-            plc.QX[2] = false;
-        }
+// Begin hier met je update functie
+hmi.QX[0] = (hmi.IX[0] || hmi.QX[0]) && !hmi.IX[1];
+// lamp = (start or lamp) and not stop; 
+hmi.QW[0] = hmi.IW[0];
+if (hmi.IW[0] > 30){
+    hmi.QX[1] = true;
+}else{
+    hmi.QX[1] = false;
+}
+if (hmi.IW[0] > 60){
+    hmi.QX[2] = true;
+}else{
+    plc.QX[2] = false;
+}
 
         </textarea>
         <br>
