@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CodeMirror CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/neo.min.css">
+
+<!-- CodeMirror JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/javascript/javascript.min.js"></script>
+
+<head>
+  <title>Mini PLC</title>
+  <link rel="stylesheet" href="plcstyle.css">
+</head>
+<body>
+    <table><tr>
+        <td width="50%" valign="top">
+    <h2>Mini PLC simulator</h2>
+
+    <div>
+        <button class="button" id="btn0">HMI IX0 (Knop 0)</button>
+        <button class="button" id="btn1">HMI IX1 (Knop 1)</button>
+    </div>
+    <div>
+        <input type="range" id="slider0" min="0" max="100" value="0">
+    </div>
+
+    <div>
+        <div class="lamp" id="lamp0"><p id="QX0"></p></div> Uitgang QX0 (Lamp 1)<br>
+        <div class="lamp" id="lamp1"><p id="QX1"></p></div> Uitgang QX1 (Lamp 2)<br>
+        <div class="lamp" id="lamp2"><p id="QX2"></p></div> Uitgang QX2 (Lamp 3)
+    </div>
+    <div>
+        <div class="display" id="display0">ET1:</div><br>
+        <div class="bar-container">
+            <div class="bar-fill" id="bar0"></div>
+        </div>
+    </div>
+    </td>
+    <td width="50%" valign="top">
+    <div>
+        <h3>PLC update functie</h3>
+        <textarea class="textarea" id="codeEditor" rows="12" cols="60" spellcheck="false">
+        // Begin hier met je update functie
+        plc.QX[0] = plc.IX[0];
+        hmi.QW[0] = hmi.IW[0];
+        if (hmi.IW[0] > 30){
+            plc.QX[1] = true;
+        }else{
+            plc.QX[1] = false;
+        }
+        if (hmi.IW[0] > 60){
+            plc.QX[2] = true;
+        }else{
+            plc.QX[2] = false;
+        }
+        </textarea>
+        <br>
+        <button onclick="applyUpdateCode()">⏳ Update functie toepassen</button>
+
+    </div>
+    </td>
+    </tr></table>
+    <script src="plcScript.js"></script>
+</body>
+</html>

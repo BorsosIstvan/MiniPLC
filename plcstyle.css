@@ -1,0 +1,52 @@
+/* plc style css*/
+    .lamp {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: gray;
+      margin: 10px;
+      display: inline-block;
+    }
+
+    .lamp.on {
+      background-color: red;
+    }
+
+    .button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+    }
+
+    .bar-container {
+  width: 200px;
+  height: 20px;
+  background-color: #ccc;
+  border: 1px solid #999;
+}
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  background-color: green;
+  transition: width 0.2s;
+}
+textarea {
+    font-family: monospace;
+    color: #ffffff;
+    background-color: #000000;
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+.CodeMirror.cm-s-neo {
+  background-color: #000 !important;
+  color: #ccc !important;
+}
+
+.cm-s-neo .CodeMirror-gutters {
+  background-color: #000 !important;
+  border-right: 1px solid #333;
+}
+
+.cm-s-neo .CodeMirror-linenumber {
+  color: #555;
+}
