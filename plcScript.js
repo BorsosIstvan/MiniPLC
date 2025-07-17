@@ -47,35 +47,35 @@ class HMI {
 }
 
 class TON {
+    #IN = false;   // Ingang
+    #Q = false;    // Uitgang
+    #PT = 1000;      // Preset Time in ms
+    #ET = 0;       // Elapsed Time
+    #_startTime = null;
     constructor() {
-        this.IN = false;   // Ingang
-        this.Q = false;    // Uitgang
-        this.PT = 1000;      // Preset Time in ms
-        this.ET = 0;       // Elapsed Time
-        this._startTime = null;
     }
 
-    setIN(IN) {this.IN = IN;}
-    setPT(PT) {this.PT = PT;}
-    getQ() {return this.Q;}
-    getET() {return this.ET;}
+    setIN(IN) {this.#IN = IN;}
+    setPT(PT) {this.#PT = PT;}
+    get Q() {return this.#Q;}
+    get ET() {return this.#ET;}
 
     update() {
         //this.IN = IN;
         
-        if (this.IN) {
-        if (this._startTime === null) {
-            this._startTime = Date.now();
+        if (this.#IN) {
+        if (this.#_startTime === null) {
+            this.#_startTime = Date.now();
         }
-        this.ET = Date.now() - this._startTime;
-        if (this.ET >= this.PT) {
-            this.ET = this.PT;
-            this.Q = true;
+        this.#ET = Date.now() - this.#_startTime;
+        if (this.#ET >= this.#PT) {
+            this.#ET = this.#PT;
+            this.#Q = true;
         }
         } else {
-        this._startTime = null;
-        this.ET = 0;
-        this.Q = false;
+        this.#_startTime = null;
+        this.#ET = 0;
+        this.#Q = false;
         }
     }
 }
