@@ -43,18 +43,19 @@
         <h3>PLC update functie</h3>
         <textarea class="textarea" id="codeEditor" rows="12" cols="60" spellcheck="false">
         // Begin hier met je update functie
-        plc.QX[0] = plc.IX[0];
+        hmi.QX[0] = hmi.IX[0];
         hmi.QW[0] = hmi.IW[0];
         if (hmi.IW[0] > 30){
-            plc.QX[1] = true;
+            hmi.QX[1] = true;
         }else{
-            plc.QX[1] = false;
+            hmi.QX[1] = false;
         }
         if (hmi.IW[0] > 60){
-            plc.QX[2] = true;
+            hmi.QX[2] = true;
         }else{
             plc.QX[2] = false;
         }
+
         </textarea>
         <br>
         <button onclick="applyUpdateCode()">Update functie toepassen</button>
