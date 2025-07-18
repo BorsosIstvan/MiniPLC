@@ -37,7 +37,7 @@ textarea {
     border: 1px solid #ccc;
     padding: 8px;
   }
-.CodeMirror.cm-s-neo {
+/*.CodeMirror.cm-s-neo {
   background-color: #000 !important;
   color: #ccc !important;
 }
@@ -49,4 +49,4 @@ textarea {
 
 .cm-s-neo .CodeMirror-linenumber {
   color: #555;
-}
+}*/
