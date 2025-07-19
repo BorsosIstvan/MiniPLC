@@ -21,6 +21,11 @@ class HMI {
         btn1.addEventListener("mouseup", () => this.IX[1] = false);
         btn1.addEventListener("mouseleave", () => this.IX[1] = false);
 
+        const btn2 = document.getElementById("btn2");
+        btn1.addEventListener("mousedown", () => this.IX[2] = true);
+        btn1.addEventListener("mouseup", () => this.IX[2] = false);
+        btn1.addEventListener("mouseleave", () => this.IX[2] = false);
+
         // Analoge invoer (IW) via slider
         const pot0 = document.getElementById("slider0");
         pot0.addEventListener("input", () => {
