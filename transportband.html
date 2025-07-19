@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Transportband Simulator</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .conveyor-container {
+      width: 400px;
+      height: 60px;
+      overflow: hidden;
+      border: 2px solid #333;
+      background: #222;
+      position: relative;
+      margin: 40px auto;
+    }
+
+    .belt {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .box {
+      width: 40px;
+      height: 40px;
+      background-color: orange;
+      position: absolute;
+      top: 10px;
+      border: 2px solid #fff;
+      border-radius: 5px;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Transportband Simulator</h2>
+  <div>
+    <button onclick="hmi.QX[0] = true">Start Band</button>
+    <button onclick="hmi.QX[0] = false">Stop Band</button>
+    <button onclick="hmi.QX[1] = false">Richting Rechts</button>
+    <button onclick="hmi.QX[1] = true">Richting Links</button>
+    <input type="range" min="0" max="100" value="50" oninput="hmi.QW[0] = parseInt(this.value)">
+    <label>Snelheid: <span id="speedDisplay">50</span></label>
+  </div>
+
+  <div class="conveyor-container">
+    <div class="belt" id="belt">
+      <div class="box" style="left: 20px;"></div>
+      <div class="box" style="left: 120px;"></div>
+      <div class="box" style="left: 220px;"></div>
+    </div>
+  </div>
+
+  <script>
+    const boxes = document.querySelectorAll('.box');
+    const speedDisplay = document.getElementById("speedDisplay");
+
+    let hmi = {
+      QX: [true, false],   // QX[0] = aan/uit, QX[1] = richting
+      QW: [50],            // QW[0] = snelheid
+      update: function() {
+        speedDisplay.innerText = this.QW[0];
+      }
+    };
+
+    function updateTransportBand() {
+      hmi.update();
+      if (hmi.QX[0]) {
+        let speed = (hmi.QW[0] || 0) / 20;
+        let direction = hmi.QX[1] ? -1 : 1;
+
+        boxes.forEach(box => {
+          let current = parseFloat(box.style.left);
+          current += speed * direction;
+
+          if (current > 400) current = -40;
+          if (current < -40) current = 400;
+
+          box.style.left = current + 'px';
+        });
+      }
+    }
+
+    setInterval(updateTransportBand, 20);
+  </script>
+</body>
+</html>

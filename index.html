@@ -19,48 +19,66 @@
     <h2>Mini PLC simulator</h2>
 
     <div>
-        <button class="button" id="btn0">HMI IX0 (Knop 0)</button>
-        <button class="button" id="btn1">HMI IX1 (Knop 1)</button>
+        <button class="button" id="btn0">hmi.IX[0]</button>
+        <button class="button" id="btn1">hmi.IX[1]</button>
+        <button class="button" id="btn2">hmi.IX[2]</button>
     </div>
     <div>
         <input type="range" id="slider0" min="0" max="100" value="0">
+        <input type="range" id="slider1" min="0" max="100" value="0">
+        <input type="range" id="slider2" min="0" max="100" value="0">
     </div>
 
     <div>
-        <div class="lamp" id="lamp0"><p id="QX0"></p></div> Uitgang QX0 (Lamp 1)<br>
-        <div class="lamp" id="lamp1"><p id="QX1"></p></div> Uitgang QX1 (Lamp 2)<br>
-        <div class="lamp" id="lamp2"><p id="QX2"></p></div> Uitgang QX2 (Lamp 3)
+        <div class="lamp" id="lamp0"><p id="QX0"></p></div>hmi.QX[0]
+        <div class="lamp" id="lamp1"><p id="QX1"></p></div>hmi.QX[1]
+        <div class="lamp" id="lamp2"><p id="QX2"></p></div>hmi.QX[2]
     </div>
     <div>
-        <div class="display" id="display0">ET1:</div><br>
+        <div class="lcd-display" id="display0">hmi.QW[0]</div>
+        <div class="lcd-display" id="display1">hmi.QW[1]</div>
+        <div class="lcd-display" id="display2">hmi.QW[2]</div>
+    </div>
+    <div>
         <div class="bar-container">
-            <div class="bar-fill" id="bar0"></div>
+            <div class="bar-fill" id="bar0">hmi.QW[3]</div>
+        </div>
+    </div>
+    <div>
+        <div class="conveyor">
+            <div class="belt" id="belt">hmi.QX[3}</div>
+            <div class="box" style="left: 20px;"></div>
         </div>
     </div>
     </td>
     <td width="90%" valign="top">
+
     <div>
         <h3>PLC update functie</h3>
         <textarea class="textarea" id="codeEditor" rows="12" cols="60" spellcheck="false">
-// Begin hier met je update functie
+// Start Stop knop
 hmi.QX[0] = (hmi.IX[0] || hmi.QX[0]) && !hmi.IX[1];
-// lamp = (start or lamp) and not stop; 
 hmi.QW[0] = hmi.IW[0];
-if (hmi.IW[0] > 30){
-    hmi.QX[1] = true;
-}else{
-    hmi.QX[1] = false;
-}
-if (hmi.IW[0] > 60){
-    hmi.QX[2] = true;
-}else{
-    plc.QX[2] = false;
-}
+toff.PT = hmi.IW[1];
+toff.IN = hmi.IX[0];
+hmi.QX[3] = toff.Q;
+toff.update();
+
 
         </textarea>
         <br>
         <button onclick="applyUpdateCode()">Update functie toepassen</button>
-
+    </div>
+    <div>
+        <h3>Setup hardware</h3>
+        <textarea class="textarea" id="setupEditor" rows="12" cols="60" spellcheck="false">
+// PLC en HMI maken
+plc = new PLC();
+hmi = new HMI();
+toff = new TOFF();
+        </textarea>
+        <br>
+        <button onclick="applyUpdateSetup()">Update instellingen</button>
     </div>
     </td>
     </tr></table>
