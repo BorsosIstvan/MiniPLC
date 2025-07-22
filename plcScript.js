@@ -5,6 +5,7 @@ class HMI {
         this.QX = [false, false, false, false];  // digitale uitgangen van PLC naar HMI (lampen)
         this.IW = [0, 0, 0, 0];                    // analoge ingang (slider)
         this.QW = [0, 0, 0, 0];                    // analoge uitgang (display)
+        this.MQTT = null;                        // mqtt message
 
         this._bindElements();
     }
@@ -15,16 +16,40 @@ class HMI {
         btn0.addEventListener("mousedown", () => this.IX[0] = true);
         btn0.addEventListener("mouseup", () => this.IX[0] = false);
         btn0.addEventListener("mouseleave", () => this.IX[0] = false);
+        btn0.addEventListener("touchstart", (e) => {
+            e.preventDefault(); // voorkom onnodig scrollen
+            this.IX[0] = true;
+        });
+            btn0.addEventListener("touchend", (e) => {
+            e.preventDefault();
+            this.IX[0] = false;
+        });
 
         const btn1 = document.getElementById("btn1");
         btn1.addEventListener("mousedown", () => this.IX[1] = true);
         btn1.addEventListener("mouseup", () => this.IX[1] = false);
         btn1.addEventListener("mouseleave", () => this.IX[1] = false);
-
+        btn1.addEventListener("touchstart", (e) => {
+            e.preventDefault(); // voorkom onnodig scrollen
+            this.IX[0] = true;
+        });
+            btn1.addEventListener("touchend", (e) => {
+            e.preventDefault();
+            this.IX[0] = false;
+        });
+        
         const btn2 = document.getElementById("btn2");
         btn2.addEventListener("mousedown", () => this.IX[2] = true);
         btn2.addEventListener("mouseup", () => this.IX[2] = false);
         btn2.addEventListener("mouseleave", () => this.IX[2] = false);
+        btn2.addEventListener("touchstart", (e) => {
+            e.preventDefault(); // voorkom onnodig scrollen
+            this.IX[0] = true;
+        });
+            btn2.addEventListener("touchend", (e) => {
+            e.preventDefault();
+            this.IX[0] = false;
+        });
 
         // Analoge invoer (IW) via slider
         const pot0 = document.getElementById("slider0");
@@ -157,14 +182,73 @@ class PLC {
         toff.IN = hmi.IX[0];
         hmi.QX[3] = toff.Q;
         toff.update();
+        hmi.QX[2] = hmi.MQTT === "0" ? false : true;
     }
 }
+
+class MQTT {
+  constructor() {
+    this.client = null;
+    this.topicName = "";
+    this.onMessageCallback = null;
+    this.lastMessage = null; // ✅ opslaan van laatste bericht
+  }
+
+  connect(brokerUrl, options = {}) {
+    this.client = mqtt.connect(brokerUrl, options);
+
+    this.client.on('connect', () => {
+      console.log("✅ Verbonden met broker:", brokerUrl);
+      if (this.topicName) {
+        this.client.subscribe(this.topicName, (err) => {
+          if (!err) {
+            console.log("📡 Geabonneerd op:", this.topicName);
+          }
+        });
+      }
+    });
+
+    this.client.on('message', (topic, message) => {
+      const msgStr = message.toString();
+      this.lastMessage = msgStr;  // ✅ hier bewaren
+      console.log("📥 Ontvangen:", msgStr);
+      mqttmsg(msgStr);
+      if (this.onMessageCallback) this.onMessageCallback(msgStr);
+    });
+  }
+
+  topic(topicName) {
+    this.topicName = topicName;
+    if (this.client && this.client.connected) {
+      this.client.subscribe(topicName);
+    }
+  }
+
+  send(message) {
+    if (this.client && this.client.connected && this.topicName) {
+      this.client.publish(this.topicName, message);
+    }
+  }
+
+  receive(callback) {
+    this.onMessageCallback = callback;
+  }
+
+  // ✅ Hier kun je het laatste ontvangen bericht ophalen
+  getLastMessage() {
+    return this.lastMessage;
+  }
+}
+
 
 function init(){
     // PLC en HMI maken
     plc = new PLC();
     hmi = new HMI();
     toff = new TOFF();
+    const mqtt = new MQTT();
+    mqtt.connect("ws://poci.n-soft.net:9001");
+    mqtt.topic("lamp/status");
 }
 
 init();
@@ -218,3 +302,7 @@ function applyUpdateSetup() {
     tabSize: 2,
     indentUnit: 2
   });
+
+  function mqttmsg(msg){
+    hmi.MQTT = msg;
+  }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulatie Robotarm</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+    }
+    .scene {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      margin: 20px auto;
+      background-color: #f0f0f0;
+      border: 2px solid #ccc;
+    }
+    .arm {
+      position: absolute;
+      width: 100px;
+      height: 10px;
+      background-color: steelblue;
+      transform-origin: left center;
+      transition: transform 0.05s;
+    }
+    #arm1 {
+      top: 200px;
+      left: 100px;
+    }
+    #arm2 {
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>2-assige Robotarm Simulatie</h2>
+  <div class="scene" id="scene">
+    <div class="arm" id="arm1"></div>
+    <div class="arm" id="arm2"></div>
+  </div>
+
+  <label>Basishoek (0–180°):
+    <input type="range" id="angle1" min="0" max="180" value="90">
+  </label>
+  <br>
+  <label>Hoek tweede arm (-90 tot +90°):
+    <input type="range" id="angle2" min="-90" max="90" value="0">
+  </label>
+
+  <script>
+    const arm1 = document.getElementById("arm1");
+    const arm2 = document.getElementById("arm2");
+    const slider1 = document.getElementById("angle1");
+    const slider2 = document.getElementById("angle2");
+
+    function update() {
+      const angle1 = parseFloat(slider1.value);
+      const angle2 = parseFloat(slider2.value);
+
+      // Eerste arm roteren
+      arm1.style.transform = `rotate(${angle1}deg)`;
+
+      // Bereken eindpunt van arm1
+      const rad1 = angle1 * Math.PI / 180;
+      const x1 = 100 + 100 * Math.cos(rad1);
+      const y1 = 200 + 100 * Math.sin(rad1);
+
+      // Positie tweede arm
+      arm2.style.left = `${x1}px`;
+      arm2.style.top = `${y1}px`;
+      arm2.style.transform = `rotate(${angle1 + angle2}deg)`;
+    }
+
+    slider1.addEventListener("input", update);
+    slider2.addEventListener("input", update);
+    update(); // initial draw
+  </script>
+</body>
+</html>

@@ -9,6 +9,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/javascript/javascript.min.js"></script>
 
+<!-- MQTT -->
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+
 <head>
   <title>Mini PLC</title>
   <link rel="stylesheet" href="plcstyle.css">
@@ -63,8 +66,7 @@ toff.PT = hmi.IW[1];
 toff.IN = hmi.IX[0];
 hmi.QX[3] = toff.Q;
 toff.update();
-
-
+hmi.QX[2] = hmi.MQTT === "0" ? false : true;
         </textarea>
         <br>
         <button onclick="applyUpdateCode()">Update functie toepassen</button>
@@ -76,10 +78,16 @@ toff.update();
 plc = new PLC();
 hmi = new HMI();
 toff = new TOFF();
+const mqtt = new MQTT();
+mqtt.connect("ws://poci.n-soft.net:9001");
+mqtt.topic("lamp/status");
         </textarea>
         <br>
         <button onclick="applyUpdateSetup()">Update instellingen</button>
     </div>
+    </td>
+    <td>
+        <iframe src="http://poci.n-soft.net/web_hmi/scada.html" width="400" height="300" style="border:1px solid black;"></iframe>
     </td>
     </tr></table>
     <script src="plcScript.js"></script>

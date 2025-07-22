@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Oefenen html css js</title>
+        <link>
+        <style>
+            #container {
+            width: 800px;
+            height: 600px;
+            border: 2px solid rgb(205, 205, 205);
+            position: relative;
+            }
+            .button {
+            width: 130px;
+            height: 60px;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            margin: 5px;
+            font-size: 16px;
+            }
+            .button:active {
+            background: red;
+            }
+            .button.on {
+            background-color: red;
+            }
+            #textarea {
+            width: 400px;
+            height: 600px;
+            border: 2px solid rgb(205, 205, 205);
+            position: relative;
+            }
+        </style>
+
+    </head>
+    <body>
+        <h2>Button test</h2>
+        <thead>
+        <table>
+        <tr><td>
+        <div id="container">
+            <input type="button" value="START" class="button" id="btn0"><br>
+            <input type="button" value="OUT" class="button" id="uit0">
+        </div>
+        </td>
+        <td>
+        <div id="textarea">
+            <textarea>
+                // Structured text voorbeeld:
+            </textarea>
+        </div>
+        </td>
+        </tr>
+        </table>
+        <script>
+            class PLC {
+                #IX = [0];
+                #QX = [0];
+                
+                set IX(value) {this.#IX = value}
+                set QX(value) {this.#QX = value}
+                get IX() {return this.#IX}
+                get QX() {return this.#QX}
+
+                update() {
+                    hmi.QX[0] = hmi.IX[0];
+                }
+            }
+            class HMI {
+                #IX = [0];
+                #QX = [0];
+                
+                set IX(value) {this.#IX = value}
+                set QX(value) {this.#QX = value}
+                get IX() {return this.#IX}
+                get QX() {return this.#QX}
+
+                update() {
+                    document.getElementById("btn0").onclick = function() {
+                        hmi.IX[0] = ! hmi.IX[0];
+                    }
+                    document.getElementById("uit0").classList.toggle("on", hmi.QX[0]);
+                }
+            }
+            function init(){
+                plc = new PLC();
+                hmi = new HMI();
+                let start = document.getElementById("btn0");
+                let lamp = document.getElementById("uit0");
+                start.style.left = "5px";
+                start.style.top = "5px";
+                
+                }
+            
+            init();
+            setInterval(() => {
+                try{
+                    hmi.update();
+                    plc.update();
+                }catch (err){
+                    alert("Fout in functie " + err.message)
+                }
+            },20);
+        </script>
+
+    </body>
+
+</html>

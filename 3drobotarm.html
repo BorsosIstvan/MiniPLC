@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<title>3D Robotarm in Three.js</title>
+<style>
+  body { margin: 0; overflow: hidden; font-family: Arial; }
+  #controls { position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 8px; }
+  label { display: block; margin: 5px 0 2px; }
+</style>
+</head>
+<body>
+
+<div id="controls">
+  <label>Schouder (segment 1) rotatie: <input type="range" id="joint1" min="-90" max="90" value="0" /></label>
+  <label>Elleboog (segment 2) rotatie: <input type="range" id="joint2" min="-90" max="90" value="0" /></label>
+  <label>Pols (segment 3) rotatie: <input type="range" id="joint3" min="-90" max="90" value="0" /></label>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
+<script>
+  // Scene setup
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xf0f0f0);
+
+  // Camera
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 150, 300);
+  camera.lookAt(0, 50, 0);
+
+  // Renderer
+  const renderer = new THREE.WebGLRenderer({antialias:true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // Licht
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+  scene.add(ambientLight);
+
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+  directionalLight.position.set(100, 200, 100);
+  scene.add(directionalLight);
+
+  // Grondvlak (voor referentie)
+  const gridHelper = new THREE.GridHelper(300, 20);
+  scene.add(gridHelper);
+
+  // Material
+  const material = new THREE.MeshStandardMaterial({color: 0x0077ff});
+
+  // Segment lengte
+  const segmentLength = 80;
+
+  // Maak 3 segmenten (cilinders)
+  function createSegment() {
+    const geometry = new THREE.CylinderGeometry(5, 5, segmentLength, 20);
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.castShadow = true;
+    return mesh;
+  }
+
+  // Root object om de arm op te bouwen
+  const armRoot = new THREE.Object3D();
+  armRoot.position.set(0, 0, 0);
+  scene.add(armRoot);
+
+  // Segment 1
+  const segment1 = createSegment();
+  segment1.position.y = segmentLength / 2;
+  armRoot.add(segment1);
+
+  // Segment 2
+  const joint1 = new THREE.Object3D();
+  joint1.position.y = segmentLength;
+  armRoot.add(joint1);
+
+  const segment2 = createSegment();
+  segment2.position.y = segmentLength / 2;
+  joint1.add(segment2);
+
+  // Segment 3
+  const joint2 = new THREE.Object3D();
+  joint2.position.y = segmentLength;
+  joint1.add(joint2);
+
+  const segment3 = createSegment();
+  segment3.position.y = segmentLength / 2;
+  joint2.add(segment3);
+
+  // Pols (eindpunt)
+  const joint3 = new THREE.Object3D();
+  joint3.position.y = segmentLength;
+  joint2.add(joint3);
+
+  // Axes helper (optioneel)
+  //scene.add(new THREE.AxesHelper(50));
+
+  // UI Controls
+  const slider1 = document.getElementById('joint1');
+  const slider2 = document.getElementById('joint2');
+  const slider3 = document.getElementById('joint3');
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    // Zet rotaties rond de Z-as (voel je vrij om Y of X te proberen!)
+    joint1.rotation.z = THREE.MathUtils.degToRad(slider1.value);
+    joint2.rotation.z = THREE.MathUtils.degToRad(slider2.value);
+    joint3.rotation.z = THREE.MathUtils.degToRad(slider3.value);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Responsive
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+</script>
+
+</body>
+</html>
