@@ -31,11 +31,11 @@ class HMI {
         btn1.addEventListener("mouseleave", () => this.IX[1] = false);
         btn1.addEventListener("touchstart", (e) => {
             e.preventDefault(); // voorkom onnodig scrollen
-            this.IX[0] = true;
+            this.IX[1] = true;
         });
             btn1.addEventListener("touchend", (e) => {
             e.preventDefault();
-            this.IX[0] = false;
+            this.IX[1] = false;
         });
         
         const btn2 = document.getElementById("btn2");
@@ -44,11 +44,11 @@ class HMI {
         btn2.addEventListener("mouseleave", () => this.IX[2] = false);
         btn2.addEventListener("touchstart", (e) => {
             e.preventDefault(); // voorkom onnodig scrollen
-            this.IX[0] = true;
+            this.IX[2] = true;
         });
             btn2.addEventListener("touchend", (e) => {
             e.preventDefault();
-            this.IX[0] = false;
+            this.IX[2] = false;
         });
 
         // Analoge invoer (IW) via slider

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Realistische HMI</title>
+  <style>
+    body {
+      background: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .lamp {
+      filter: drop-shadow(0 0 10px lime);
+      transition: all 0.3s ease;
+    }
+
+    .lamp.off {
+      fill: #444;
+      filter: none;
+    }
+
+    .btn {
+      cursor: pointer;
+    }
+
+    .glossy {
+      fill: url(#gradient);
+    }
+  </style>
+</head>
+<body>
+
+<svg width="300" height="200" viewBox="0 0 300 200">
+  <!-- Gradient voor glossy knop -->
+  <defs>
+    <radialGradient id="gradient" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="red" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Lampje -->
+  <circle id="lamp" class="lamp off" cx="80" cy="100" r="20"/>
+  <text x="60" y="140" fill="#ccc">Lamp</text>
+
+  <!-- Knop met glossy effect -->
+  <circle id="knop" class="btn glossy" cx="200" cy="100" r="25" stroke="#800" stroke-width="2"/>
+  <text x="180" y="140" fill="#ccc">Druk</text>
+</svg>
+
+<script>
+  const lamp = document.getElementById("lamp");
+  const knop = document.getElementById("knop");
+
+  let lampAan = false;
+
+  knop.addEventListener("mousedown", () => {
+    lampAan = true;
+    lamp.classList.remove("off");
+  });
+
+  knop.addEventListener("mouseup", () => {
+    lampAan = false;
+    lamp.classList.add("off");
+  });
+</script>
+
+</body>
+</html>
