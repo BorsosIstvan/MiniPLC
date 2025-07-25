@@ -20,23 +20,39 @@
     <table><tr>
         <td width="60%" valign="top">
     <h2>Mini PLC simulator</h2>
-
+<!--
     <div>
         <button class="button" id="btn0">hmi.IX[0]</button>
         <button class="button" id="btn1">hmi.IX[1]</button>
         <button class="button" id="btn2">hmi.IX[2]</button>
-    </div>
+    </div>-->
+    <svg width="384" height="256" viewBox="0 0 384 256">
+        <rect x="0" y="0" width="384" height="256" rx="10" ry="10" 
+        style="filter: drop-shadow(14px 16px 18px rgba(0, 0, 0, 0.3));fill :#c0c0c0; stroke: #999;"/>
+        <image id="btn0" href="img/yellowbutton.png" x="0" y="0" /><text x="0" y="126">hmi.IX[0]</text>
+        <image id="btn1" href="img/yellowbutton.png" x="128" y="0" /><text x="128" y="126">hmi.IX[1]</text>
+        <image id="btn2" href="img/yellowbutton.png" x="256" y="0" /><text x="256" y="126">hmi.IX[2]</text>
+
+        <image id="LedOff0" href="img/donkerbutton.png" x="0" y="128" style="display: inline;"/><text x="0" y="254" >hmi.QX[0]</text>
+        <image id="LedOn0" href="img/redbuttonon.png" x="0" y="128" style="display: none;"/><text x="0" y="254" >hmi.QX[0]</text>
+
+        <image id="LedOff1" href="img/donkerbutton.png" x="128" y="128" style="display: inline;"/><text x="128" y="254" >hmi.QX[1]</text>
+        <image id="LedOn1" href="img/redbuttonon.png" x="128" y="128" style="display: none;"/><text x="128" y="254" >hmi.QX[1]</text>
+
+        <image id="LedOff2" href="img/donkerbutton.png" x="256" y="128" style="display: inline;"/><text x="256" y="254" >hmi.QX[2]</text>
+        <image id="LedOn2" href="img/redbuttonon.png" x="256" y="128" style="display: none;"/><text x="256" y="254" >hmi.QX[2]</text>
+    </svg>
     <div>
         <input type="range" id="slider0" min="0" max="100" value="0">
         <input type="range" id="slider1" min="0" max="100" value="0">
         <input type="range" id="slider2" min="0" max="100" value="0">
     </div>
-
+<!--
     <div>
         <div class="lamp" id="lamp0"><p id="QX0"></p></div>hmi.QX[0]
         <div class="lamp" id="lamp1"><p id="QX1"></p></div>hmi.QX[1]
         <div class="lamp" id="lamp2"><p id="QX2"></p></div>hmi.QX[2]
-    </div>
+    </div>-->
     <div>
         <div class="lcd-display" id="display0">hmi.QW[0]</div>
         <div class="lcd-display" id="display1">hmi.QW[1]</div>

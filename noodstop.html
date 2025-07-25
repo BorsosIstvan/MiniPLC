@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=128, initial-scale=1.0" />
+  <title>Noodstopknop</title>
+<style>
+    body {
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    svg {
+      filter: drop-shadow(4px 6px 8px rgba(0, 0, 0, 0.3));
+    }
+
+    .panel {
+      fill: #c0c0c0; /* lichtgrijs */
+      rx: 10;
+      ry: 10;
+      stroke: #999;
+      stroke-width: 1;
+    }
+  </style>
+</head>
+<body>
+
+<svg width="512" height="512" viewBox="0 0 512 512">
+  <!-- Simpele grijze rechthoek met afgeronde hoeken -->
+  <rect class="panel" x="0" y="0" width="512" height="512" rx="10" ry="10"/>
+    
+  <svg id="noodknop" viewBox="0 0 128 128">
+    <style>
+        svg {
+      width: 128px;
+      height: 128px;
+    }
+    .button-bg {
+      fill: #ffcc00;
+      stroke: #000000;
+      stroke-width: 1;
+    }
+    .button-red {
+      fill: red;
+      filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.6));
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    .button-red:active {
+      transform: scale(0.95);
+    }
+    text {
+      font-family: sans-serif;
+      font-size: 10px;
+      fill: black;
+      text-anchor: middle;
+    }
+  </style>
+
+    <!-- Behuizing -->
+    <rect x="4" y="4" width="120" height="120" rx="10" ry="10" fill="#ffcc00" stroke="#000000" stroke-width="1" />
+
+    <!-- Ronde rode knop -->
+     <g class="button-red" onclick="emergencyStop()" >
+        <circle cx="64" cy="64" r="48" />
+        <circle cx="64" cy="64" r="32" stroke="#d00" />
+     </g>
+
+    <script>
+        function emergencyStop() {
+        alert("🛑 Noodstop geactiveerd!");
+        }
+    </script>
+
+  </svg>
+
+</svg>
+
+
+</body>
+</html>

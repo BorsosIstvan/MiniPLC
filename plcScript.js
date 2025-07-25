@@ -88,6 +88,11 @@ class HMI {
 
         // Transportband
         belt.style.animationPlayState = this.QX[3] ? "running" : "paused";
+
+        // Beeld als lamp handelen
+        toggleLamp("LedOn0", "LedOff0", hmi.QX[0]);
+        toggleLamp("LedOn1", "LedOff1", hmi.QX[1]);
+        toggleLamp("LedOn2", "LedOff2", hmi.QX[2]);
     }
 }
 
@@ -305,4 +310,15 @@ function applyUpdateSetup() {
 
   function mqttmsg(msg){
     hmi.MQTT = msg;
+  }
+
+  // img handelaar
+  function toggleLamp(lampOnId, lampOffId, hmiQX) {
+    const ledon = document.getElementById(lampOnId);
+    const ledoff = document.getElementById(lampOffId);
+
+    const staatAan = hmiQX;
+
+    ledon.style.display = staatAan? "inline" : "none";
+    ledoff.style.display = staatAan ? "none" : "inline";
   }

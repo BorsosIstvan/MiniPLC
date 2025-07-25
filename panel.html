@@ -1,72 +1,74 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Realistische HMI</title>
+  <meta charset="UTF-8">
+  <title>Simpel 1U Panel</title>
   <style>
     body {
-      background: #1a1a1a;
+      background: white;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
 
-    .lamp {
-      filter: drop-shadow(0 0 10px lime);
-      transition: all 0.3s ease;
+    svg {
+      filter: drop-shadow(14px 16px 18px rgba(0, 0, 0, 0.3));
     }
 
-    .lamp.off {
-      fill: #444;
-      filter: none;
-    }
-
-    .btn {
-      cursor: pointer;
-    }
-
-    .glossy {
-      fill: url(#gradient);
+    .panel {
+      fill: #c0c0c0; /* lichtgrijs */
+      rx: 10;
+      ry: 10;
+      stroke: #999;
+      stroke-width: 1;
     }
   </style>
 </head>
 <body>
 
-<svg width="300" height="200" viewBox="0 0 300 200">
-  <!-- Gradient voor glossy knop -->
-  <defs>
-    <radialGradient id="gradient" cx="50%" cy="30%" r="60%">
-      <stop offset="0%" stop-color="#fff" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="red" stop-opacity="1"/>
-    </radialGradient>
-  </defs>
-
-  <!-- Lampje -->
-  <circle id="lamp" class="lamp off" cx="80" cy="100" r="20"/>
-  <text x="60" y="140" fill="#ccc">Lamp</text>
-
-  <!-- Knop met glossy effect -->
-  <circle id="knop" class="btn glossy" cx="200" cy="100" r="25" stroke="#800" stroke-width="2"/>
-  <text x="180" y="140" fill="#ccc">Druk</text>
+<svg width="512" height="512" viewBox="0 0 512 512">
+  <!-- Simpele grijze rechthoek met afgeronde hoeken -->
+  <g class="panel">
+    <rect x="0" y="0" width="512" height="512" rx="10" ry="10" style="filter: drop-shadow(14px 16px 18px rgba(0, 0, 0, 0.3));
+    fill :#c0c0c0; stroke: #999;"/>
+    <image id="bknop" href="img/bluebutton.png" x="0" y="0" onclick="toggleImage(`bknop` , `bonknop`)"/>
+    <image id="bonknop" href="img/bluebuttonon.png" x="0" y="0" onclick="toggleImage('bknop' , 'bonknop')" style="display: none;"/>
+    <image id="rknop" href="img/redbutton.png" x="128" y="0" onclick="lampOn()"/>
+    <image id="yknop" href="img/yellowbutton.png" x="256" y="0" onclick="lampOn()"/>
+    <image id="gknop" href="img/greenbutton.png" x="384" y="0" onclick="lampOn()"/>
+    
+    <image id="ylampon" href="img/yellowbuttonon.png" x="128" y="128" onclick="lampOn()" style="display: none;"/>
+    <image id="ylampoff" href="img/yellowbutton.png" x="128" y="128" onclick="lampOn()" style="display: inline;"/>
+  </g>
+  
 </svg>
-
 <script>
-  const lamp = document.getElementById("lamp");
-  const knop = document.getElementById("knop");
+        function emergencyStop() {
+        //alert("🛑 Noodstop geactiveerd!");
+        const image = document.getElementById("hknop");
+        image.style.display = (image.style.display === "none") ? "inline" : "none";
+        }
+        function lampOn() {
+          const imageon = document.getElementById("ylampon");
+          imageon.style.display = (imageon.style.display === "none" ) ? "inline" : "none";
+          const imageoff = document.getElementById("ylampoff");
+          imageoff.style.display = (imageoff.style.display === "inline" ) ? "none" : "inline";
+        }
+        function toggleImage(onId, offId) {
+          const onImg = document.getElementById(onId);
+          const offImg = document.getElementById(offId);
 
-  let lampAan = false;
+          const staatAan = onImg.style.display !== "none";
 
-  knop.addEventListener("mousedown", () => {
-    lampAan = true;
-    lamp.classList.remove("off");
-  });
+          onImg.style.display = staatAan ? "none" : "inline";
+          offImg.style.display = staatAan ? "inline" : "none";
+        }
+        function toggleLamp(){
 
-  knop.addEventListener("mouseup", () => {
-    lampAan = false;
-    lamp.classList.add("off");
-  });
-</script>
+        }
+    </script>
 
 </body>
 </html>

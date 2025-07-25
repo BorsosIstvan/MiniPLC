@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>1U Panel met 1/4U Modules</title>
+  <style>
+    body {
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    svg {
+      filter: drop-shadow(4px 6px 8px rgba(0, 0, 0, 0.2));
+    }
+
+    .base-panel {
+      fill: #c0c0c0;
+      stroke: #999;
+      stroke-width: 1;
+      rx: 10;
+      ry: 10;
+    }
+
+    .module {
+      fill: #e0e0e0;
+      stroke: #888;
+      stroke-width: 0.5;
+      rx: 10;
+      ry: 10;
+    }
+  </style>
+</head>
+<body>
+
+<svg width="512" height="512" viewBox="0 0 512 512">
+  <!-- Hoofdpaneel -->
+  <rect class="base-panel" x="0" y="0" width="512" height="512" rx="10" ry="10"/>
+
+  <!-- 4x4 grid van 1/4U panelen -->
+  <g id="modules">
+    <!-- Deze worden via JS gegenereerd -->
+  </g>
+</svg>
+
+<script>
+  const g = document.getElementById('modules');
+  const size = 128;
+  for (let row = 0; row < 4; row++) {
+    for (let col = 0; col < 4; col++) {
+      const x = col * size;
+      const y = row * size;
+      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("class", "module");
+      rect.setAttribute("x", x);
+      rect.setAttribute("y", y);
+      rect.setAttribute("width", size);
+      rect.setAttribute("height", size);
+      rect.setAttribute("rx", 10);
+      rect.setAttribute("ry", 10);
+      g.appendChild(rect);
+    }
+  }
+</script>
+
+</body>
+</html>
