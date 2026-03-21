@@ -1,4 +1,10 @@
-## Műszaki Dokumentáció: Renault Grand Scenic 1.9 dCi (ECU Javítás)
+# 🚗 Renault Grand Scenic 1.9 dCi
+## 🛠️ ECU Javítási Napló
+
+⚠️ **FIGYELEM:** A G2 láb (3LU) zárlatos! ⚡
+✅ Klíma nyomásszenzor lehúzva -> P0340 hiba eltűnt.
+🔧 **Teendő:** Vezérműszíj csere 80.000 km-nél. ⚙️
+
 
 
 1. Jármű adatai
