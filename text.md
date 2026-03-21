@@ -1,3 +1,38 @@
+1. Jármű adatai
+Típus: Renault Grand Scenic II (2007 körüli)
+Motor: 1.9 dCi (130 LE), F9Q motorkód
+Vezérlőegység (ECU): Bosch EDC16C36
+Bosch szám: 0 281 013 907
+Renault számok: 8200705747 / 8200705748
+2. Hibajelenségek és Diagnózis
+Jelenség: Meleg motornál alapjáraton dadogás, majd leállás. Pici gázadással életben tartható.
+Kritikus hiba: Az üzemanyagnyomás (Rail Pressure) alapjáraton hirtelen beesik 300 bar-ról 100 bar alá (zuhanás).
+Elektronikai hiba: Az ECU belső 5V-os referencia tápköre (Sensor Ref No. 2) zárlatos. Ez a zárlat melegedésre fokozódik.
+3. Hibakódok és jelentésük
+P0340: Vezérműtengely jeladó (Camshaft Sensor) hiba. (Oka: az 5V-os táp instabilitása a zárlat miatt).
+P0530: Klíma nyomásérzékelő hiba. (Oka: a csatlakozó beázott, oxidált, ez okozta a zárlatot).
+P0380: Izzítási kör hiba (Glow plugs). Nem akadályozza a hazautat.
+P1435: EGR hiba (szoftveresen kiiktatva, de a hardveres zárlat miatt maradt fent).
+4. ECU Pinout (G3 - nagy szürke csatlakozó)
+G2 láb (3LU): Sensor Ref. 2 (+5V). Ez a zárlatos ág! (Ide tartozik: Gázpedál 2. pálya, Vezérműtengely jeladó, Klíma gomba, EGR visszajelzés).
+H2 láb (3LR): Sensor Ref. 1 (+5V). Ez a "jó" ág. (Ide tartozik: Gázpedál 1. pálya, Rail nyomás szenzor, Turbónyomás/MAP szenzor).
+5. Ideiglenes "Túlélő" megoldás (Bypass)
+Gázpedál: A 3LU-ra (2-es láb a pedálnál) menő vezetéket elvágtad, és rákötötted a 3LR-ről (3-as láb) érkező tiszta 5V-ra.
+Klíma: A klímahűtőnél lévő oxidált nyomásszenzort lehúztad. Ez stabilizálta a rendszert, a P0340 kód eltűnt, a leállás megszűnt.
+6. Mechanikai állapot (Szervizlista)
+Vezérlés: 80 000 km / 4 év (kíméletesen bírja a 2000 km-t, de otthon azonnal csere: Gates/Conti szett + Vízpumpa).
+Termosztát: Rossz (nyitva maradt, max. 70°C). Csere otthon.
+Motortartók: Alsó "kutyacsont" szakadt, felső hidraulikus kopott. (Javasolt: Hutchinson bakok).
+7. Otthoni terv (Románia)
+Bontott ECU: 0 281 013 907 (450 RON).
+Műszer: Renolink 1.99 (120 RON).
+Eljárás:
+A) Új ECU virginizálása (Renolink "Virginizer" -> Clear Immo) + betétel után öntanulás.
+B) EEPROM átforrasztása (régi ECU-ból az újba) – TV-szerelői rutinnal.
+C) Régi ECU paneljavítása (G2 láb környéki SMD kondik/diódák ellenőrzése).
+Aktuális állapot: Napi 100 km tesztüzem P0340 nélkül. Pénteken indulás Hollandiából haza (2000 km). Szerencsés utat!
+
+
 Íme egy rendszerezett összefoglaló az eddigi diagnózisról és a megoldási tervről. Ezt elmentheted, mert minden fontos adatot tartalmaz a későbbi javításhoz.
 1. Jármű adatai
 
