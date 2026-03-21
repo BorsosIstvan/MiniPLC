@@ -71,47 +71,57 @@
 **Aktuális állapot:** Napi 100 km tesztüzem hiba nélkül.
 🏁 **Pénteken indulás Hollandiából (2000 km). Szerencsés utat!** 🛣️
 
-Aktuális állapot: Napi 100 km tesztüzem P0340 nélkül. Pénteken indulás Hollandiából haza (2000 km). Szerencsés utat!
+# 🛡️ Renault Grand Scenic 1.9 dCi – "Túlélő" Dokumentáció
+## 🩺 Az ECU javítási folyamat és diagnosztikai kórlap
 
+---
 
-## Műszaki Dokumentáció: Renault Grand Scenic 1.9 dCi (ECU Javítás)1. Vezérlőegység (ECU) Specifikációk
+### 🏁 Aktuális állapot (Hollandia)
+* **Tesztüzem:** Napi 100 km megtétele hiba nélkül.
+* **Státusz:** A klímaszenzor lehúzásával a **P0340** megszűnt, a 100 bar-os nyomásesés megállt. 
+* **Terv:** Pénteken indulás haza (2000 km). **Sok sikert és biztonságos utat!** 🛣️
 
-* Típus: Bosch EDC16C36 (CP33)
-* Bosch szám: 0 281 013 907
-* Renault azonosítók: 8200705747 / 8200705748
-* EEPROM Chip: ST95160 vagy ST95320 (8-tűs SPI buszos Serial Flash).
-* Megjegyzés: Itt tárolódik az Immobilizer (indításgátló) kód és a konfigurációs adatok.
-* Processzor/Flash: Motorola MPC5xx (itt van a motorvezérlő szoftver, az "EGR-off" térképek).
+---
 
-2. Pinout és Tápellátási Anomália (G3 - Nagy szürke csatlakozó)
+### 1. 📑 Vezérlőegység (ECU) Specifikációk
+* **Típus:** Bosch EDC16C36 (CP33)
+* **Azonosítók:** `0 281 013 907` | `8200705747` / `8200705748`
+* **EEPROM Chip:** ST95160 vagy ST95320 (8-tűs SPI Serial Flash)
+    * *Megjegyzés:* Itt tárolódik az **Immobilizer** kód és a konfiguráció.
+* **Processzor:** Motorola MPC5xx (Tartalmazza az EGR-off szoftvert).
 
-* G2 láb (3LU): Sensor Reference 2 (+5V). ZÁRLATOS ÁG!
-* Érintett szenzorok: Gázpedál (2. pálya), Vezérműtengely jeladó, Klíma nyomásszenzor.
-* H2 láb (3LR): Sensor Reference 1 (+5V). STABIL ÁG.
-* Érintett szenzorok: Gázpedál (1. pálya), Üzemanyagnyomás (Rail), Turbónyomás (MAP).
-* Ideiglenes megoldás: A 3LU vezetéket elvágva a gázpedál 5V-os tápját a 3LR ágról pótoltad (bypass).
+---
 
-3. Hibakódok és Állapot
+### 2. ⚡ Pinout és Tápellátási Anomália (G3 csatlakozó)
+* **G2 láb (3LU) – Sensor Reference 2 (+5V):** ❌ **ZÁRLATOS ÁG!**
+    * *Érintett:* Gázpedál (2. pálya), Vezérműtengely jeladó, Klíma nyomásszenzor.
+* **H2 láb (3LR) – Sensor Reference 1 (+5V):** ✅ **STABIL ÁG.**
+    * *Érintett:* Gázpedál (1. pálya), Üzemanyagnyomás (Rail), Turbónyomás (MAP).
+* **💡 Bypass megoldás:** A 3LU vezetéket elvágva a gázpedál 5V-os tápja a 3LR ágról lett pótolva.
 
-* P0340: Vezérműtengely jeladó (eltűnt a klíma-lehúzás után!).
-* P0530: Klíma nyomásérzékelő (lehúzva, szakadást jelez, de nem zárolja az 5V-ot).
-* P0380: Izzítógyertya hiba (folyamatosan jelen van, nem kritikus).
-* P1435: EGR hiba (szoftveresen kiiktatva).
+---
 
-4. Mechanikai Lista (Hazaút után)
+### 3. 🖥️ Hibakódok és Állapot
+* **P0340:** Vezérműtengely jeladó -> ✅ Megszűnt a klíma-lehúzás után.
+* **P0530:** Klíma nyomásérzékelő -> 🔌 Lehúzva (szakadás, de nem rántja le az 5V-ot).
+* **P0380:** Izzítógyertya hiba -> ℹ️ Folyamatosan jelen van, nem kritikus.
+* **P1435:** EGR hiba -> 🛑 Szoftveresen kiiktatva.
 
-* Vezérlés: 80 000 km / 4 év (Gates/Contitech szett + Vízpumpa csere esedékes).
-* Bakok: Alsó billenésgátló ("kutyacsont") és felső hidraulikus bak csere (Hutchinson javasolt).
-* Termosztát: Rossz, nyitva maradt (70°C).
+---
 
-5. Szoftveres/Hardveres helyreállítási terv (Románia)
+### 4. ⚙️ Mechanikai Lista (Hazaút után)
+* **Vezérlés:** 80.000 km / 4 év (Gates/Contitech szett + Vízpumpa csere).
+* **Bakok:** Alsó "kutyacsont" és felső hidraulikus bak csere (**Hutchinson** javasolt).
+* **Termosztát:** 🌡️ Rossz, nyitva maradt (70°C). Csere esedékes.
 
-   1. EEPROM Olvasás: A régi ECU-ból a 95160/95320 chip tartalmát 8-pines csipesszel (pl. CH341A vagy hasonló programozóval) kiolvasod.
-   2. EEPROM Írás: A kiolvasott tartalmat (.bin vagy .hex) beírod az új (bontott) ECU EEPROM-jába.
-   3. Renolink: Ha az EEPROM klónozás után bármi szoftveres eltérés lenne, a Renolink 1.99 kábellel elvégzed a végső konfigurációt (pl. kézifék aktiválása, hibatörlés).
-   4. Hardver javítás: A régi ECU panelén a G2 láb (3LU) mentén megkeresed a zárlatos SMD kondenzátort vagy diódát, és eltávolítod.
+---
 
-------------------------------
-Aktuális státusz: A klímaszenzor lehúzásával a P0340 megszűnt, a 100 bar-os nyomásesés megállt. Az autó alkalmas a pénteki 2000 km-es útra.
-Sok sikert a heti 500 km-es teszthez és biztonságos hazautat pénteken! Ezt a listát mentsd el, ez a Scenic "orvosi kórlapja".
+### 5. 🛠️ Szoftveres/Hardveres Helyreállítás (Románia)
+1. **EEPROM Olvasás:** A régi ECU-ból a 95160/95320 chip tartalmának kimentése (pl. CH341A programozóval).
+2. **EEPROM Írás:** A mentett `.bin` vagy `.hex` tartalom beírása az új (bontott) ECU-ba.
+3. **Renolink 1.99:** Szoftveres konfiguráció, kézifék aktiválása és végső hibatörlés.
+4. **Hardver javítás:** A régi panelen a G2 láb mentén a zárlatos SMD kondenzátor/dióda felderítése és eltávolítása.
 
+---
+
+> **Záró megjegyzés:** Ez a lista a Scenic "orvosi kórlapja". Mentsd el jól, minden adat megvan benne a végleges javításhoz! 📖📌
