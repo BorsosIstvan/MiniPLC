@@ -125,3 +125,60 @@
 ---
 
 > **Záró megjegyzés:** Ez a lista a Scenic "orvosi kórlapja". Mentsd el jól, minden adat megvan benne a végleges javításhoz! 📖📌
+
+# 🚗 Renault Grand Scenic II (1.9 dCi) Alkatrészlista - "Nagygenerál"
+
+**Gépjármű adatai:**
+- **Motor:** 1.9 dCi (131 LE / 96 kW)
+- **Motorkód:** F9Q (pl. 732/733)
+- **ECU Típusa:** Bosch EDC16C36 (0 281 013 907)
+
+---
+
+## 🔧 1. Motor és Mechanika (Kritikus alkatrészek)
+
+
+| Alkatrész megnevezése | Román név (OLX/Bolt) | Holland név (Autodoc) | Ajánlott márka | Cikkszám / Megjegyzés |
+| :--- | :--- | :--- | :--- | :--- |
+| **Vezérlés szett + Vízpumpa** | Set distribuție cu pompă de apă | Distributieriem set + waterpomp | **GATES** | KP15610XS (Prémium választás) |
+| **Felső motortartó bak** | Suport motor dreapta (Hidraulic) | Motorsteun rechts (Hydrolager) | **HUTCHINSON** | 586367 (A gyári beszállító) |
+| **Alsó motortartó (Kutyacsont)** | Bieletă antibalans (Suport cutie) | Reactiestang (Motorsteun onder) | **HUTCHINSON** | 532A02 (vagy Lemförder 31341 01) |
+| **Termosztát (Házzal együtt)** | Termostat cu carcasă | Thermostaat met behuizing | **GATES / VERNET** | Nyitási hőfok: 89°C |
+| **Üzemanyagszűrő** | Filtru motorină | Brandstoffilter | **PURFLUX** | Ellenőrizni: betét vagy komplett ház! |
+
+---
+
+## ⚡ 2. Elektronika (A zárlat és hibakódok javítása)
+
+
+| Eszköz / Alkatrész | Román név (OLX/Bolt) | Funkció | Megjegyzés |
+| :--- | :--- | :--- | :--- |
+| **Bontott ECU** | Calculator motor (ECU) | Hardvercsere a zárlat miatt | **Bosch 0 281 013 907** (Pontos egyezés!) |
+| **Renolink 1.99 Interfész** | Interfață Renolink 1.99 | Virginizálás, Kézifék, Diagnosztika | OLX-en kb. 120 RON |
+| **Klíma nyomásszenzor** | Senzor presiune climă (Presostat) | A P0530 és zárlat forrása | **RIDEX / HELLA** (Csak ECU csere után!) |
+| **EEPROM Chip (Belső)** | EEPROM ST95160 / ST95320 | Immo és Szoftver adatok tárolása | 8-tűs SPI Flash (Klónozáshoz) |
+
+---
+
+## 🛡️ 3. Futómű és Fékek
+
+
+| Alkatrész megnevezése | Román név (OLX/Bolt) | Holland név (Autodoc) | Ajánlott márka | Megjegyzés |
+| :--- | :--- | :--- | :--- | :--- |
+| **Stabilizátor szilent** | Bucșă bară stabilizatoare | Stabilisatorrubber | **HUTCHINSON** | Átmérő: 20 mm (Mérd le a rudat!) |
+| **Első féktárcsa szett** | Set discuri frână față | Remschijven voor | **ATE / TRW** | Magas széntartalmú (High Carbon) |
+| **Első fékbetét szett** | Set plăcuțe frână față | Remblokken voor | **ATE / TRW** | Kerámia betét is opció |
+
+---
+
+## 📝 Fontos Technikai Megjegyzések a Műtéthez
+
+### 🔴 ECU Pinout (G3 Nagy szürke csatlakozó)
+- **G2 láb (3LU):** Sensor Reference 2 (+5V) -> **ZÁRLATOS ÁRAMKÖR.**
+- **H2 láb (3LR):** Sensor Reference 1 (+5V) -> **STABIL ÁRAMKÖR.**
+- *Javítás:* EEPROM klónozás vagy Renolink "Clear Immo" (Virginize) funkció.
+
+### 🚗 Hazaút Stratégia (2000 km)
+- **Klíma szenzor:** Lehúzva hagyni (P0340 elkerülése végett).
+- **Alapjárat:** Ha dadog, tarts lábbal 1100 RPM-et.
+- **Üzemanyag:** Prémium gázolaj (Shell V-Power / BP Ultimate).
