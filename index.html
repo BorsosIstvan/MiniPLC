@@ -16,7 +16,7 @@
 
     <script>
         // Betöltjük a külső .md fájlt
-        fetch('text.md')
+        fetch('\text.md')
             .then(response => response.text())
             .then(text => {
                 // Átalakítjuk a Markdown-t HTML-re és beillesztjük
@@ -26,67 +26,6 @@
                 document.getElementById('content').innerHTML = "Hiba: Nem sikerült betölteni a fájlt. (Futtasd szerverről!)";
             });
     </script>
-	<script>
-    const contentDiv = document.getElementById('content');
-
-    async function loadMarkdown() {
-        try {
-            // Hozzáadunk egy véletlen számot, hogy ne a gyorsítótárból (cache) olvasson
-            const response = await fetch('text.md?v=' + Math.random());
-            
-            console.log("Szerver válasz státusz:", response.status);
-
-            if (!response.ok) {
-                throw new Error(`Szerver hiba: ${response.status} (${response.statusText})`);
-            }
-
-            const text = await response.text();
-            console.log("Beolvasott szöveg hossza:", text.length);
-
-            if (text.length === 0) {
-                throw new Error("A text.md fájl üres!");
-            }
-
-            contentDiv.innerHTML = marked.parse(text);
-        } catch (err) {
-            console.error("Részletes hiba:", err);
-            contentDiv.innerHTML = "<strong>Hiba történt:</strong> " + err.message;
-        }
-    }
-
-    loadMarkdown();
-	</script>
-	<!-- Először beemeljük a könyvtárat -->
-<script src="https://cdn.jsdelivr.net"></script>
-
-<script>
-    async function loadMarkdown() {
-        const contentDiv = document.getElementById('content');
-        
-        // Ellenőrizzük, hogy a 'marked' objektum létezik-e
-        if (typeof marked === 'undefined') {
-            contentDiv.innerHTML = "Hiba: A 'marked' könyvtár nem töltődött be!";
-            return;
-        }
-
-        try {
-            const response = await fetch('text.md');
-            if (!response.ok) throw new Error('A text.md nem található (404)');
-            
-            const text = await response.text();
-            
-            // Itt történik a varázslat: a marked.parse() használata
-            contentDiv.innerHTML = marked.parse(text);
-            
-        } catch (err) {
-            contentDiv.innerHTML = "Hiba: " + err.message;
-        }
-    }
-
-    // Futtatás
-    loadMarkdown();
-</script>
-
 
 </body>
 </html>
