@@ -15,4 +15,4 @@
 *   **🛠️ OVK szerelés:** OVK egységek végleges felszerelése.
 
 ---
-*Utolsó frissítés: 2024. május*
+*Utolsó frissítés: 2026. március 22*
