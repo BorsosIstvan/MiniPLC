@@ -29,5 +29,17 @@
                 document.getElementById('content').innerHTML = "Hiba: Nem sikerült betölteni a fájlt. (Futtasd szerverről!)";
             });
     </script>
+	    <script>
+        // Betöltjük a külső .md fájlt
+        fetch('suli.md')
+            .then(response => response.text())
+            .then(text => {
+                // Átalakítjuk a Markdown-t HTML-re és beillesztjük
+                document.getElementById('content').innerHTML = marked.parse(text);
+            })
+            .catch(err => {
+                document.getElementById('content').innerHTML = "Hiba: Nem sikerült betölteni a fájlt. (Futtasd szerverről!)";
+            });
+    </script>
 </body>
 </html>
