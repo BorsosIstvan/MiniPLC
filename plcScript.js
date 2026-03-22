@@ -251,9 +251,9 @@ function init(){
     plc = new PLC();
     hmi = new HMI();
     toff = new TOFF();
-    const mqtt = new MQTT();
-    mqtt.connect("ws://poci.n-soft.net:9001");
-    mqtt.topic("lamp/status");
+    //const mqtt = new MQTT();
+    //mqtt.connect("ws://poci.n-soft.net:9001");
+    //mqtt.topic("lamp/status");
 }
 
 init();
