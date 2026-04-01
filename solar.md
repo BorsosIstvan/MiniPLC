@@ -1,6 +1,6 @@
-# Melinda solat tennivalók
+# Melinda repowerapp tennivalók.
 
-##  A melinda oldal megnyitasa
+##  A melinda oldal megnyitása
 
 
 ### repowerapp.melinda.ro
@@ -9,6 +9,11 @@
 
 ### Lépések:
 ## 1. ⚠️ Az üres falról fotó!
-* Nyitott projektek megnyitani.
+* Nyitott projekteket megnyitani.
 * Klienst kikeresni.
 * Akku és inverter szerelés elött foto és feltölt.
+
+   2. Internet beállítás.
+* Sim kártya kód fotó.
+* Kártya csere.
+
