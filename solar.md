@@ -13,7 +13,7 @@
 * Klienst kikeresni.
 * Akku és inverter szerelés elött foto és feltölt.
 
-   2. Internet beállítás.
+## 2. Internet beállítás.
 * Sim kártya kód fotó.
 * Kártya csere.
 
