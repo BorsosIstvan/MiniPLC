@@ -18,7 +18,7 @@
 * Sim kártya kód fotó.
 * Kártya csere.
 
-### Szerszámok:
+## Szerszámok:
 
 ## 🔌 Gépek
 * Ütvefúró (6, 8, 10, 16, 24, 30)
