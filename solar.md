@@ -75,3 +75,9 @@
 ### 28. repower tábla kint
 ### 29. kivitelezés deviz feltöltve
 ### 30. mindent kikapcs.
+
+## Szerelések.
+
+*  Gál József HR. Joseni, nr. 18  01-04-2026
+*  Fülöp Árpád HR. Joseni, nr. 1248  02-04-2026
+*  Darvas Alexandru HR. Joseni, nr HR. Joseni, nr 154  03-04-2026
