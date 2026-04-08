@@ -187,7 +187,6 @@ class PLC {
         toff.IN = hmi.IX[0];
         hmi.QX[3] = toff.Q;
         toff.update();
-        hmi.QX[2] = hmi.MQTT === "0" ? false : true;
     }
 }
 
