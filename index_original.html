@@ -83,7 +83,6 @@ toff.PT = hmi.IW[1];
 toff.IN = hmi.IX[0];
 hmi.QX[3] = toff.Q;
 toff.update();
-hmi.QX[2] = hmi.MQTT === "0" ? false : true;
         </textarea>
         <br>
         <button onclick="applyUpdateCode()">Update functie toepassen</button>
@@ -95,9 +94,6 @@ hmi.QX[2] = hmi.MQTT === "0" ? false : true;
 plc = new PLC();
 hmi = new HMI();
 toff = new TOFF();
-const mqtt = new MQTT();
-mqtt.connect("ws://poci.n-soft.net:9001");
-mqtt.topic("lamp/status");
         </textarea>
         <br>
         <button onclick="applyUpdateSetup()">Update instellingen</button>
